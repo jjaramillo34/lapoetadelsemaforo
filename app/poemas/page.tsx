@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Feather } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
+import ScrollToTop from '../components/ScrollToTop';
 
 const poems = [
   {
@@ -111,6 +112,7 @@ export default function PoemasPage() {
           </p>
         </div>
       </footer>
+      <ScrollToTop />
     </div>
   );
 }

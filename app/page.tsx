@@ -16,6 +16,7 @@ import PoemsPreview from './components/PoemsPreview';
 import MainTextSection from './components/MainTextSection';
 import QuoteSection from './components/QuoteSection';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function Home() {
   useEffect(() => {
@@ -58,6 +59,7 @@ export default function Home() {
         <QuoteSection />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
