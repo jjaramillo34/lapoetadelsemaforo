@@ -48,7 +48,7 @@ export default function PoemasPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 w-full py-12 lg:py-16 xl:py-20">
+      <main className="relative z-10 flex-1 w-full py-12 lg:py-16 xl:py-20">
         <div className="w-full max-w-4xl mx-auto px-6 lg:px-12">
           {/* Page Title */}
           <div className="text-center mb-12 lg:mb-16">
@@ -104,7 +104,7 @@ export default function PoemasPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-red-600/30 py-8 lg:py-10 mt-12 lg:mt-16 xl:mt-20 w-full bg-black/50">
+      <footer className="relative z-10 border-t border-red-600/30 py-8 lg:py-10 mt-12 lg:mt-16 xl:mt-20 w-full bg-black/50">
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-sm md:text-base text-gray-400">
             © {new Date().getFullYear()} Andrea Kristina Vaca Cifuentes - La Poetisa del Semáforo
