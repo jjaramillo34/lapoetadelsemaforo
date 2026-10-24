@@ -1,7 +1,5 @@
-'use client';
-
-import { useEffect } from 'react';
-import AnimatedBackground from './components/AnimatedBackground';
+import { Column } from '@once-ui-system/core';
+import PageBackground from './components/PageBackground';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import TrafficLight from './components/TrafficLight';
@@ -19,32 +17,12 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
 export default function Home() {
-  useEffect(() => {
-    const initFloatingIcons = async () => {
-      const { animate } = await import('animejs');
-      
-      // Floating animation for icons
-      const icons = document.querySelectorAll('.floating-icon');
-      icons.forEach((icon, index) => {
-        animate(icon, {
-          translateY: [0, -20],
-          duration: 2000 + index * 100,
-          delay: index * 200,
-          direction: 'alternate',
-          loop: true,
-          easing: 'easeInOutSine',
-        });
-      });
-    };
-
-    initFloatingIcons();
-  }, []);
-
   return (
-    <div className="min-h-screen bg-black text-white w-full flex flex-col relative">
-      <AnimatedBackground />
+    <Column fillWidth flex={1}>
+      <PageBackground />
       <Header />
-      <main className="flex-1 w-full relative z-10">
+      {/* zIndex keeps content above the fixed page background */}
+      <Column as="main" fillWidth flex={1} zIndex={1}>
         <HeroSection />
         <TrafficLight />
         <BiographySection />
@@ -57,9 +35,9 @@ export default function Home() {
         <PoemsPreview />
         <MainTextSection />
         <QuoteSection />
-      </main>
+      </Column>
       <Footer />
       <ScrollToTop />
-    </div>
+    </Column>
   );
 }

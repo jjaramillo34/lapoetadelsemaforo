@@ -1,7 +1,7 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
-import { BookOpen, Quote, PenTool } from 'lucide-react';
+import { Column, Heading, Icon, Row, Text } from '@once-ui-system/core';
+import { proseStyle } from '../resources/content';
+import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
 
 const review = {
   title: 'Reseña de La Luz Verde',
@@ -17,95 +17,48 @@ Recomendado para lectores que buscan poesía viva, incómoda y necesaria, La Luz
   date: 'Ambato, diciembre 22 de 2025.'
 };
 
+const italic = { fontStyle: 'italic' } as const;
+
 export default function BookReviewSection() {
-  const reviewRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const initAnimation = async () => {
-      const { animate, stagger } = await import('animejs');
-      
-      if (reviewRef.current) {
-        animate(reviewRef.current, {
-          opacity: [0, 1],
-          translateY: [30, 0],
-          duration: 800,
-          easing: 'easeOutQuad',
-        });
-        
-        const children = Array.from(reviewRef.current.querySelectorAll('.review-content > *'));
-        if (children.length > 0) {
-          animate(children, {
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 600,
-            delay: stagger(200),
-            easing: 'easeOutQuad',
-          });
-        }
-      }
-    };
-
-    initAnimation();
-  }, []);
-
   return (
-    <section ref={reviewRef} className="flex justify-center w-full py-12 lg:py-16 xl:py-20 bg-gradient-to-b from-black to-red-950/10">
-      <div className="w-full max-w-4xl mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-8 lg:mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <PenTool className="w-8 h-8 lg:w-10 lg:h-10 text-red-600 floating-icon" />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-              <span className="text-white">Reseña</span>
-            </h2>
-          </div>
-        </div>
+    <Column as="section" fillWidth horizontal="center" paddingY="40" paddingX="24">
+      <Column maxWidth="m" gap="32">
+        <SectionHeading icon="pen" floatingIcon title="Reseña" />
 
-        {/* Review Card */}
-        <div className="bg-gradient-to-br from-red-600/10 to-black/50 border border-red-600/30 rounded-lg p-8 md:p-10 lg:p-12">
-          {/* Review Title and Author */}
-          <div className="mb-8 pb-6 border-b border-red-600/20">
-            <div className="flex items-center gap-3 mb-4">
-              <BookOpen className="w-7 h-7 lg:w-8 lg:h-8 text-red-600" />
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-red-600">
-                {review.title}
-              </h3>
-            </div>
-            <div className="ml-10 md:ml-12">
-              <p className="text-lg md:text-xl font-semibold text-white mb-1">
-                {review.subtitle}
-              </p>
-              <p className="text-sm md:text-base text-gray-400 italic">
-                {review.subtitleRole}
-              </p>
-            </div>
-          </div>
+        <Reveal>
+          <Column fillWidth background="surface" border="brand-alpha-medium" radius="l" padding="40" gap="24">
+            {/* Review title and author */}
+            <Column gap="16" paddingBottom="24" borderBottom="brand-alpha-weak">
+              <Row gap="12" vertical="center">
+                <Icon name="book" size="l" onBackground="brand-strong" />
+                <Heading as="h3" variant="heading-strong-xl" onBackground="brand-strong">
+                  {review.title}
+                </Heading>
+              </Row>
+              <Column gap="4">
+                <Text variant="heading-strong-s">{review.subtitle}</Text>
+                <Text variant="body-default-s" onBackground="neutral-weak" style={italic}>
+                  {review.subtitleRole}
+                </Text>
+              </Column>
+            </Column>
 
-          {/* Review Content */}
-          <div className="review-content">
-            <div className="mb-6">
-              <Quote className="w-8 h-8 lg:w-10 lg:h-10 text-red-600/50 mb-4" />
-            </div>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed whitespace-pre-line text-justify font-serif">
-                {review.content}
-              </p>
-            </div>
+            {/* Review content */}
+            <Icon name="quote" size="l" onBackground="brand-medium" />
+            <Text variant="body-default-l" onBackground="neutral-medium" align="justify" style={proseStyle}>
+              {review.content}
+            </Text>
 
-            {/* Review Footer */}
-            <div className="mt-8 pt-6 border-t border-red-600/20">
-              <div className="flex flex-col items-end gap-2">
-                <p className="text-base md:text-lg font-semibold text-white">
-                  — {review.author}
-                </p>
-                <p className="text-sm md:text-base text-gray-400 italic">
-                  {review.date}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            {/* Review footer */}
+            <Column paddingTop="24" borderTop="brand-alpha-weak" horizontal="end" align="right" gap="4">
+              <Text variant="heading-strong-s">— {review.author}</Text>
+              <Text variant="body-default-s" onBackground="neutral-weak" style={italic}>
+                {review.date}
+              </Text>
+            </Column>
+          </Column>
+        </Reveal>
+      </Column>
+    </Column>
   );
 }

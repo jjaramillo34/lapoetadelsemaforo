@@ -1,74 +1,67 @@
-@import "tailwindcss";
+/* Body background, text color and fonts come from Once UI (see app/layout.tsx). */
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: #dc2626;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  --font-poem: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
-#__next,
-main,
-[data-nextjs-scroll-focus-boundary] {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
+/* Gentle bob for decorative icons; Once UI disables it under prefers-reduced-motion */
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.floating-icon {
+  animation: float 2s ease-in-out infinite alternate;
+}
+
+/* Blinking cursor for TypewriterQuote */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor {
+  margin-left: 2px;
+  color: var(--brand-on-background-strong);
+  animation: blink 1.06s steps(1) infinite;
+}
+
+/* Active traffic light */
+@keyframes light-pulse {
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.light-pulse {
+  animation: light-pulse 2s ease-in-out infinite;
+}
+
+/* Hero entrance, pure CSS so the headline never depends on JavaScript */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 html {
   scroll-behavior: smooth;
 }
-
-/* Additional background animation styles */
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
-}
-
-/* Ensure TSParticles canvas is behind content */
-#tsparticles {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0 !important;
-  pointer-events: none;
-}
-
-#tsparticles canvas {
-  z-index: 0 !important;
-}
-
