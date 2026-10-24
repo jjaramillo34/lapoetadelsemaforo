@@ -3,7 +3,14 @@
 import { useEffect, useState } from 'react';
 import { Column, Row } from '@once-ui-system/core';
 
-type LightColor = 'red' | 'yellow' | 'green';
+export type LightColor = 'red' | 'yellow' | 'green';
+
+// Once UI color scheme for each light, so text can match the active one.
+export const lightScheme = {
+  red: 'danger',
+  yellow: 'warning',
+  green: 'success',
+} as const;
 
 const sequence: Array<{ color: LightColor; duration: number }> = [
   { color: 'red', duration: 3000 },
@@ -12,13 +19,10 @@ const sequence: Array<{ color: LightColor; duration: number }> = [
   { color: 'yellow', duration: 2000 },
 ];
 
-const lights = [
-  { color: 'red', solid: 'danger-strong', glow: 'var(--danger-solid-strong)' },
-  { color: 'yellow', solid: 'warning-strong', glow: 'var(--warning-solid-strong)' },
-  { color: 'green', solid: 'success-strong', glow: 'var(--success-solid-strong)' },
-] as const;
+export const lights: LightColor[] = ['red', 'yellow', 'green'];
 
-export default function TrafficLight() {
+/** Cycles red → yellow → green → yellow and returns the light that is on. */
+export function useTrafficLight(): LightColor {
   const [activeLight, setActiveLight] = useState<LightColor>('red');
 
   useEffect(() => {
@@ -40,8 +44,12 @@ export default function TrafficLight() {
     return () => clearTimeout(timeout);
   }, []);
 
+  return activeLight;
+}
+
+export default function TrafficLight({ activeLight }: { activeLight: LightColor }) {
   return (
-    <Column as="section" fillWidth horizontal="center" paddingY="40" paddingX="24" aria-hidden="true">
+    <Column horizontal="center" aria-hidden="true">
       {/* Top cap */}
       <Row width="128" s={{ width: '104' }} height="16" background="neutral-weak" topRadius="m" />
       <Column
@@ -54,19 +62,20 @@ export default function TrafficLight() {
         gap="20"
         s={{ paddingX: '12', paddingY: '16', gap: '16' }}
       >
-        {lights.map((light) => {
-          const isActive = activeLight === light.color;
+        {lights.map((color) => {
+          const isActive = activeLight === color;
+          const scheme = lightScheme[color];
           return (
             <Row
-              key={light.color}
+              key={color}
               width="64"
               height="64"
               s={{ width: '48', height: '48' }}
               radius="full"
-              solid={isActive ? light.solid : 'neutral-weak'}
+              solid={isActive ? `${scheme}-strong` : 'neutral-weak'}
               transition="macro-medium"
               className={isActive ? 'light-pulse' : undefined}
-              style={isActive ? { boxShadow: `0 0 32px ${light.glow}` } : undefined}
+              style={isActive ? { boxShadow: `0 0 32px var(--${scheme}-solid-strong)` } : undefined}
             />
           );
         })}

@@ -15,9 +15,26 @@ const body = Geist({ variable: "--font-body", subsets: ["latin"], display: "swap
 const label = Geist({ variable: "--font-label", subsets: ["latin"], display: "swap" });
 const code = Geist_Mono({ variable: "--font-code", subsets: ["latin"], display: "swap" });
 
+const title = "Andrea Kristina Vaca Cifuentes - La Poetisa del Semáforo";
+const description = "Portfolio de Andrea Cristina Vaca Cifuentes, poetisa pragmática de Ambato, Ecuador. La poetisa del semáforo.";
+
+// Social images come from app/opengraph-image.tsx and app/twitter-image.tsx. On Vercel,
+// Next.js resolves their absolute URLs from the production domain automatically.
 export const metadata: Metadata = {
-  title: "Andrea Kristina Vaca Cifuentes - La Poetisa del Semáforo",
-  description: "Portfolio de Andrea Cristina Vaca Cifuentes, poetisa pragmática de Ambato, Ecuador. La poetisa del semáforo.",
+  title,
+  description,
+  openGraph: {
+    type: "website",
+    locale: "es_EC",
+    siteName: "La Poetisa del Semáforo",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({

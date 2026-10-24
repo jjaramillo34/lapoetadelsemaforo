@@ -1,4 +1,4 @@
-import { Button, Column, Heading, Icon, IconButton, Row, SmartLink, Text } from '@once-ui-system/core';
+import { Button, Column, Icon, IconButton, Row, SmartLink, Text, ThemeSwitcher } from '@once-ui-system/core';
 
 const navItems = [
   { href: '/#poesia', icon: 'pen', label: 'Poesía' },
@@ -17,15 +17,22 @@ export default function Header({ showBack = false }: HeaderProps) {
       <Row gap="12" vertical="center">
         <Icon name="feather" size="l" onBackground="brand-strong" className="floating-icon" />
         <Column>
-          <Heading as="h1" variant="heading-strong-m">
+          <Text variant="heading-strong-m" onBackground="neutral-strong">
             Andrea Kristina Vaca Cifuentes
-          </Heading>
+          </Text>
           <Text variant="label-default-s" onBackground="neutral-weak" s={{ hide: true }}>
             La Poetisa del Semáforo
           </Text>
         </Column>
       </Row>
     </SmartLink>
+  );
+
+  const themeSwitcher = (
+    <ThemeSwitcher
+      collapsed
+      labels={{ system: 'Tema del sistema', dark: 'Tema oscuro', light: 'Tema claro' }}
+    />
   );
 
   return (
@@ -44,24 +51,33 @@ export default function Header({ showBack = false }: HeaderProps) {
         {showBack ? (
           <>
             <Button href="/" variant="tertiary" size="s" prefixIcon="arrowLeft" label="Volver al inicio" />
-            {brand}
+            <Row gap="16" vertical="center">
+              {brand}
+              {themeSwitcher}
+            </Row>
           </>
         ) : (
           <>
             {brand}
-            <Row as="nav" gap="8" vertical="center" aria-label="Secciones">
-              {navItems.map((item) => (
-                <IconButton
-                  key={item.href}
-                  href={item.href}
-                  icon={item.icon}
-                  variant="ghost"
-                  tooltip={item.label}
-                  tooltipPosition="bottom"
-                  ariaLabel={item.label}
-                />
-              ))}
-              <Button href="/poemas" variant="secondary" size="s" label="Poemas" />
+            <Row gap="8" vertical="center">
+              <Row as="nav" gap="8" vertical="center" aria-label="Secciones">
+                {/* Section links are hidden on phones to keep the header on one line */}
+                <Row gap="8" s={{ hide: true }}>
+                  {navItems.map((item) => (
+                    <IconButton
+                      key={item.href}
+                      href={item.href}
+                      icon={item.icon}
+                      variant="ghost"
+                      tooltip={item.label}
+                      tooltipPosition="bottom"
+                      ariaLabel={item.label}
+                    />
+                  ))}
+                </Row>
+                <Button href="/poemas" variant="secondary" size="s" label="Poemas" />
+              </Row>
+              {themeSwitcher}
             </Row>
           </>
         )}
