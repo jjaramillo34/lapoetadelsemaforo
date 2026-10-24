@@ -1,5 +1,5 @@
 import { Column } from '@once-ui-system/core';
-import AnimatedBackground from './components/AnimatedBackground';
+import PageBackground from './components/PageBackground';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import TrafficLight from './components/TrafficLight';
@@ -19,9 +19,9 @@ import ScrollToTop from './components/ScrollToTop';
 export default function Home() {
   return (
     <Column fillWidth flex={1}>
-      <AnimatedBackground />
+      <PageBackground />
       <Header />
-      {/* zIndex keeps content above the fixed particle background */}
+      {/* zIndex keeps content above the fixed page background */}
       <Column as="main" fillWidth flex={1} zIndex={1}>
         <HeroSection />
         <TrafficLight />

@@ -1,5 +1,5 @@
 import { Button, Column, Heading, Text } from '@once-ui-system/core';
-import AnimatedBackground from '../components/AnimatedBackground';
+import PageBackground from '../components/PageBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
@@ -9,7 +9,7 @@ import { poems, proseStyle } from '../resources/content';
 export default function PoemasPage() {
   return (
     <Column fillWidth flex={1}>
-      <AnimatedBackground />
+      <PageBackground />
       <Header showBack />
 
       <Column as="main" fillWidth flex={1} zIndex={1} horizontal="center" paddingY="64" paddingX="24">
