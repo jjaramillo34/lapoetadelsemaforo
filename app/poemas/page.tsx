@@ -8,9 +8,25 @@ import ScrollToTop from '../components/ScrollToTop';
 import CopyPoemButton from '../components/CopyPoemButton';
 import { poems, poemSlug, proseStyle } from '../resources/content';
 
+const title = 'Poemas - La Poetisa del Semáforo';
+const description = 'Poemas de Andrea Vaca Cifuentes, la Poetisa del Semáforo. Versos que dan guerra, versos en rojo, en amarillo y en verde.';
+
+// openGraph and twitter replace the layout's objects rather than merging, so they're complete here.
 export const metadata: Metadata = {
-  title: 'Poemas - La Poetisa del Semáforo',
-  description: 'Poemas de Andrea Vaca Cifuentes, la Poetisa del Semáforo. Versos que dan guerra, versos en rojo, en amarillo y en verde.',
+  title,
+  description,
+  openGraph: {
+    type: 'website',
+    locale: 'es_EC',
+    siteName: 'La Poetisa del Semáforo',
+    title,
+    description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
 };
 
 // Each poem takes the next traffic-light color: red, amber, green.
