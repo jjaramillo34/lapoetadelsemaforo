@@ -1,9 +1,8 @@
-'use client';
+import { Column, Icon, Row, Text } from '@once-ui-system/core';
+import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
 
-import { BookOpen, Quote } from 'lucide-react';
-
-export default function PrologueSection() {
-  const prologue = `Es la búsqueda interior, una manera de comunicar
+const prologue = `Es la búsqueda interior, una manera de comunicar
 vivencias pasadas o cuotidianas según vayan aflorando
 a su memoria, un grito desesperado a alguien que está
 en su interior y no responde llenándola de soledad,
@@ -34,46 +33,51 @@ sus escritos.
 Así es Andrea, una mujer que lucha por vivir y ve en
 el semáforo de su vida, la oportunidad de ser ella misma.`;
 
+export default function PrologueSection() {
   return (
-    <section className="py-8 lg:py-10 xl:py-12 w-full">
-      <div className="w-full max-w-5xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-8 lg:mb-10">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <BookOpen className="w-7 h-7 lg:w-8 lg:h-8 text-red-600" />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-              <span className="text-white">Prólogo</span>
-              <span className="block text-red-600 text-2xl md:text-3xl lg:text-4xl mt-2">
-                "La Luz Verde"
-              </span>
-            </h2>
-          </div>
-        </div>
+    <Column as="section" fillWidth horizontal="center" paddingY="40" paddingX="24">
+      <Column maxWidth="m" gap="32">
+        <SectionHeading
+          icon="book"
+          title="Prólogo"
+          subtitle={
+            <Text as="span" variant="heading-strong-xl" onBackground="brand-strong">
+              &quot;La Luz Verde&quot;
+            </Text>
+          }
+        />
 
-        <div className="bg-black/50 border border-white/10 rounded-lg p-6 md:p-8 lg:p-10 xl:p-12 space-y-6 lg:space-y-8">
-          {/* Opening quote */}
-          <div className="flex items-start gap-4">
-            <Quote className="w-6 h-6 lg:w-8 lg:h-8 text-red-600 flex-shrink-0 mt-1" />
-            <div className="flex-1">
-              <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed whitespace-pre-line text-justify">
+        <Reveal>
+          <Column fillWidth background="surface" border radius="l" padding="40" gap="32">
+            <Row gap="16" vertical="start">
+              <Icon name="quote" size="l" onBackground="brand-strong" s={{ hide: true }} />
+              <Text
+                variant="body-default-l"
+                onBackground="neutral-medium"
+                align="justify"
+                style={{ whiteSpace: 'pre-line' }}
+              >
                 {prologue}
-              </p>
-            </div>
-            <Quote className="w-6 h-6 lg:w-8 lg:h-8 text-red-600 flex-shrink-0 mt-1 rotate-180" />
-          </div>
+              </Text>
+              <Icon
+                name="quote"
+                size="l"
+                onBackground="brand-strong"
+                s={{ hide: true }}
+                style={{ transform: 'rotate(180deg)' }}
+              />
+            </Row>
 
-          {/* Author signature */}
-          <div className="pt-6 lg:pt-8 border-t border-red-600/20">
-            <div className="text-right">
-              <p className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-2">
-                Dr. Luis Noé Mayorga
-              </p>
-              <p className="text-sm md:text-base lg:text-lg text-gray-400">
+            {/* Author signature */}
+            <Column paddingTop="24" borderTop="brand-alpha-weak" horizontal="end" align="right" gap="4">
+              <Text variant="heading-strong-l">Dr. Luis Noé Mayorga</Text>
+              <Text variant="body-default-m" onBackground="neutral-weak">
                 Ambato, 5 de Noviembre 2015
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              </Text>
+            </Column>
+          </Column>
+        </Reveal>
+      </Column>
+    </Column>
   );
 }

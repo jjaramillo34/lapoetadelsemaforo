@@ -14,23 +14,21 @@ export default function TrafficLight() {
     ];
 
     let currentIndex = 0;
-    
+    let timeout: ReturnType<typeof setTimeout>;
+
     const animate = () => {
       setActiveLight(sequence[currentIndex].color);
-      
-      const timeout = setTimeout(() => {
+
+      // Track the latest timeout so cleanup cancels whichever step is pending.
+      timeout = setTimeout(() => {
         currentIndex = (currentIndex + 1) % sequence.length;
         animate();
       }, sequence[currentIndex].duration);
-      
-      return timeout;
     };
 
-    let timeout = animate();
+    animate();
 
-    return () => {
-      if (timeout) clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

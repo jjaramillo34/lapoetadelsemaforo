@@ -18,7 +18,11 @@ export default function TypewriterQuote() {
   useEffect(() => {
     let currentIndex = 0;
     let timeoutId: NodeJS.Timeout | null = null;
-    let cursorInterval: NodeJS.Timeout;
+
+    // Cursor blink effect, stopped once typing finishes
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
 
     const typeWriter = () => {
       if (currentIndex < fullText.length) {
@@ -26,20 +30,11 @@ export default function TypewriterQuote() {
         currentIndex++;
         timeoutId = setTimeout(typeWriter, 50); // Speed of typing
       } else {
+        clearInterval(cursorInterval);
         setIsComplete(true);
         setShowCursor(false);
       }
     };
-
-    // Cursor blink effect
-    cursorInterval = setInterval(() => {
-      setShowCursor(prev => {
-        if (isComplete) {
-          return false;
-        }
-        return !prev;
-      });
-    }, 530);
 
     // Start typing after a short delay
     const startDelay = setTimeout(() => {
@@ -54,7 +49,7 @@ export default function TypewriterQuote() {
   }, []);
 
   return (
-    <section className="py-8 lg:py-10 xl:py-12 w-full">
+    <section id="poesia" className="scroll-mt-24 py-8 lg:py-10 xl:py-12 w-full">
       <div className="w-full max-w-5xl mx-auto px-6 lg:px-12">
         <div className="bg-gradient-to-br from-red-600/10 to-black/50 border border-red-600/30 rounded-lg p-8 md:p-10 lg:p-12">
           <div className="flex items-center justify-center gap-3 mb-6 lg:mb-8">

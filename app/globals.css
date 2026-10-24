@@ -1,42 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: #dc2626;
-}
+/* Body background, text color and fonts come from Once UI (see app/layout.tsx).
+   Tailwind stays available for sections not yet migrated. */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--brand-solid-strong);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+:root {
+  --font-poem: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
-#__next,
-main,
-[data-nextjs-scroll-focus-boundary] {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
+/* Gentle bob for decorative icons; Once UI disables it under prefers-reduced-motion */
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.floating-icon {
+  animation: float 2s ease-in-out infinite alternate;
+}
+
+/* Hero entrance, pure CSS so the headline never depends on JavaScript */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 html {
@@ -71,4 +79,3 @@ html {
 #tsparticles canvas {
   z-index: 0 !important;
 }
-
