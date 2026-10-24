@@ -2,7 +2,6 @@ import { Column } from '@once-ui-system/core';
 import PageBackground from './components/PageBackground';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
-import TrafficLight from './components/TrafficLight';
 import BiographySection from './components/BiographySection';
 import FeatureCards from './components/FeatureCards';
 import Gallery from './components/Gallery';
@@ -21,10 +20,8 @@ export default function Home() {
     <Column fillWidth flex={1}>
       <PageBackground />
       <Header />
-      {/* zIndex keeps content above the fixed page background */}
-      <Column as="main" fillWidth flex={1} zIndex={1}>
+      <Column as="main" fillWidth flex={1}>
         <HeroSection />
-        <TrafficLight />
         <BiographySection />
         <FeatureCards />
         <Gallery />

@@ -7,9 +7,11 @@ interface SectionHeadingProps {
   /** Gently bob the icon up and down. */
   floatingIcon?: boolean;
   as?: 'h1' | 'h2';
+  /** Accent color for the icon; sections follow the traffic light. */
+  scheme?: 'brand' | 'warning' | 'success';
 }
 
-export default function SectionHeading({ title, subtitle, icon, floatingIcon = false, as = 'h2' }: SectionHeadingProps) {
+export default function SectionHeading({ title, subtitle, icon, floatingIcon = false, as = 'h2', scheme = 'brand' }: SectionHeadingProps) {
   return (
     <Column gap="12" horizontal="center" align="center">
       <Row gap="12" vertical="center">
@@ -17,7 +19,7 @@ export default function SectionHeading({ title, subtitle, icon, floatingIcon = f
           <Icon
             name={icon}
             size="l"
-            onBackground="brand-strong"
+            onBackground={`${scheme}-strong`}
             className={floatingIcon ? 'floating-icon' : undefined}
           />
         )}

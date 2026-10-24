@@ -1,8 +1,8 @@
 import type { OnceUIDataStyleConfig, OnceUIStyleConfig } from "@once-ui-system/core";
 
 export const style: OnceUIStyleConfig = {
-  // Forced dark: the site is designed black-only and there is no theme switch.
-  theme: "dark",
+  // "system" keeps the header's theme switch working; first visits start dark.
+  theme: "system",
   defaultTheme: "dark",
   neutral: "gray",
   brand: "red",
@@ -13,7 +13,8 @@ export const style: OnceUIStyleConfig = {
   surface: "translucent",
   transition: "all",
   scaling: "100",
-  pageBackground: "#000000",
+  // Pure black in dark mode; light mode keeps Once UI's default page color.
+  pageBackground: { dark: "#000000" },
 };
 
 export const dataStyle: OnceUIDataStyleConfig = {

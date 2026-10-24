@@ -8,7 +8,6 @@ export default function Footer() {
       as="footer"
       fillWidth
       horizontal="center"
-      zIndex={1}
       marginTop="64"
       paddingY="40"
       paddingX="24"

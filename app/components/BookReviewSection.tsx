@@ -1,4 +1,4 @@
-import { Column, Heading, Icon, Row, Text } from '@once-ui-system/core';
+import { Avatar, Column, Heading, Icon, Row, Tag, Text } from '@once-ui-system/core';
 import { proseStyle } from '../resources/content';
 import Reveal from './Reveal';
 import SectionHeading from './SectionHeading';
@@ -17,42 +17,98 @@ Recomendado para lectores que buscan poesía viva, incómoda y necesaria, La Luz
   date: 'Ambato, diciembre 22 de 2025.'
 };
 
+const paragraphs = review.content.split('\n');
+
+// Pull quote lifted from the fourth paragraph; the original sentence stays in the text.
+const pullQuote = 'Cada poema parece una señal en verde: avanzar, cruzar, no retroceder ante lo incómodo.';
+
+// Themes named in the review itself.
+const themes = ['Voz contestataria', 'Resistencia', 'Lucidez', 'Libertad'];
+
+const readingStyle = { ...proseStyle, lineHeight: 1.8 } as const;
 const italic = { fontStyle: 'italic' } as const;
 
 export default function BookReviewSection() {
   return (
-    <Column as="section" fillWidth horizontal="center" paddingY="40" paddingX="24">
+    <Column
+      as="section"
+      id="resena"
+      fillWidth
+      horizontal="center"
+      paddingY="64"
+      paddingX="24"
+      background="success-alpha-weak"
+      borderY="success-alpha-weak"
+      style={{ scrollMarginTop: '6rem' }}
+    >
       <Column maxWidth="m" gap="32">
-        <SectionHeading icon="pen" floatingIcon title="Reseña" />
+        <SectionHeading icon="pen" floatingIcon scheme="success" title="Reseña" />
 
         <Reveal>
-          <Column fillWidth background="surface" border="brand-alpha-medium" radius="l" padding="40" gap="24">
-            {/* Review title and author */}
-            <Column gap="16" paddingBottom="24" borderBottom="brand-alpha-weak">
+          <Column
+            fillWidth
+            background="surface"
+            border="success-alpha-medium"
+            radius="l"
+            paddingX="48"
+            paddingY="48"
+            gap="32"
+            s={{ paddingX: '24', paddingY: '32' }}
+          >
+            {/* Title and byline */}
+            <Column gap="20" paddingBottom="24" borderBottom="success-alpha-weak">
               <Row gap="12" vertical="center">
-                <Icon name="book" size="l" onBackground="brand-strong" />
-                <Heading as="h3" variant="heading-strong-xl" onBackground="brand-strong">
+                <Icon name="book" size="l" onBackground="success-strong" />
+                <Heading as="h3" variant="heading-strong-xl">
                   {review.title}
                 </Heading>
               </Row>
-              <Column gap="4">
-                <Text variant="heading-strong-s">{review.subtitle}</Text>
-                <Text variant="body-default-s" onBackground="neutral-weak" style={italic}>
-                  {review.subtitleRole}
-                </Text>
-              </Column>
+              <Row gap="16" vertical="center">
+                <Avatar value="VC" size="l" />
+                <Column gap="4">
+                  <Text variant="heading-strong-s">{review.author}</Text>
+                  <Text variant="body-default-s" onBackground="neutral-weak">
+                    {review.subtitleRole}
+                  </Text>
+                </Column>
+              </Row>
             </Column>
 
-            {/* Review content */}
-            <Icon name="quote" size="l" onBackground="brand-medium" />
-            <Text variant="body-default-l" onBackground="neutral-medium" align="justify" style={proseStyle}>
-              {review.content}
-            </Text>
+            <Column gap="24" maxWidth={40}>
+              {paragraphs.map((paragraph, index) => (
+                <Column key={index} gap="24">
+                  <Text
+                    variant={index === 0 ? 'heading-default-l' : 'body-default-l'}
+                    onBackground={index === 0 ? 'neutral-strong' : 'neutral-medium'}
+                    style={readingStyle}
+                  >
+                    {paragraph}
+                  </Text>
+                  {index === 1 && (
+                    <Column as="aside" aria-hidden="true" paddingY="8" paddingLeft="24" borderLeft="success-strong">
+                      <Text
+                        variant="heading-default-xl"
+                        onBackground="success-strong"
+                        style={{ ...readingStyle, lineHeight: 1.5, ...italic }}
+                      >
+                        &quot;{pullQuote}&quot;
+                      </Text>
+                    </Column>
+                  )}
+                </Column>
+              ))}
+            </Column>
 
-            {/* Review footer */}
-            <Column paddingTop="24" borderTop="brand-alpha-weak" horizontal="end" align="right" gap="4">
-              <Text variant="heading-strong-s">— {review.author}</Text>
-              <Text variant="body-default-s" onBackground="neutral-weak" style={italic}>
+            <Row gap="8" wrap>
+              {themes.map((theme) => (
+                <Tag key={theme} scheme="success" size="m" label={theme} />
+              ))}
+            </Row>
+
+            {/* Sign-off */}
+            <Column paddingTop="24" borderTop="success-alpha-weak" horizontal="end" align="right" gap="4">
+              <Text variant="heading-strong-s" style={italic}>— {review.author}</Text>
+              <Text variant="body-default-s" onBackground="neutral-weak">
                 {review.date}
               </Text>
             </Column>
